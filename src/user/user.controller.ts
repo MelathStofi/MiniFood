@@ -1,10 +1,20 @@
-import { Controller, Get, Post, Param, Body, Delete } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { User } from './user.model';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Body,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
+import { UserService } from './user.service';
+import { User } from '../entity/user.entity';
+import { AdminGuard } from '../auth/jwt.guard';
 
+@UseGuards(AdminGuard)
 @Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+export class UserController {
+  constructor(private readonly usersService: UserService) {}
 
   @Get()
   findAll(): Promise<User[]> {

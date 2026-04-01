@@ -4,7 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/user.model';
+import { PokemonModule } from './pokemon/pokemon.module';
 
 @Module({
   imports: [
@@ -16,10 +16,11 @@ import { User } from './users/user.model';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [User],
+      autoLoadEntities: true,
       synchronize: true,
     }),
     AuthModule,
+    PokemonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
